@@ -29,6 +29,8 @@ public class DeferWorkHandler extends Handler
 			return;
 		}
 		count++;
+		
+		//send again
 		sendTestMessage(1);
 	}
 	public void sendTestMessage(long interval)
