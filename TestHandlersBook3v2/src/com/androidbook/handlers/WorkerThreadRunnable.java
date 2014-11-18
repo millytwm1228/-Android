@@ -13,15 +13,20 @@ public class WorkerThreadRunnable implements Runnable
 		mainThreadHandler = h;
 	}
 	public static String tag = "TestRunnable";
+	
+	
 	public void run()
 	{
 		Log.d(tag,"start execution");
+		
 		informStart();
+		
 		for(int i=1;i <= 10;i++)
 		{
 			Utils.sleepForInSecs(1);
 			informMiddle(i);
 		}
+		
 		informFinish();
 	}
 	

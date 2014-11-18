@@ -12,13 +12,18 @@ import android.widget.TextView;
 
 public class TestHandlersDriverActivity extends Activity 
 {
-	public static final String tag="TestHandlersDriverActivity";
-    @Override
+	Handler statusBackHandler = null;
+    Thread workerThread = null;
+    private DeferWorkHandler th = null;
+    	public static final String tag="TestHandlersDriverActivity";
+    
+    	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
     }
-    @Override
+    
+    	@Override
     public boolean onCreateOptionsMenu(Menu menu) 
     {
     	super.onCreateOptionsMenu(menu);
@@ -26,7 +31,8 @@ public class TestHandlersDriverActivity extends Activity
  	   	inflater.inflate(R.menu.main_menu, menu);
     	return true;
     }
-    @Override
+    
+    	@Override
     public boolean onOptionsItemSelected(MenuItem item) 
     {
     	appendMenuItemText(item);
@@ -51,21 +57,24 @@ public class TestHandlersDriverActivity extends Activity
     private TextView getTextView(){
         return (TextView)this.findViewById(R.id.text1);
     }
+   
     public void appendText(String abc){
         TextView tv = getTextView(); 
         tv.setText(tv.getText() + "\n" + abc);
     }
+    
     private void appendMenuItemText(MenuItem menuItem){
        String title = menuItem.getTitle().toString();
        TextView tv = getTextView(); 
        tv.setText(tv.getText() + "\n" + title);
     }
+    
     private void emptyText(){
           TextView tv = getTextView();
           tv.setText("");
     }
    
-    private DeferWorkHandler th = null;
+    //test handler
     private void testDeferedHandler()
     {
     	if (th == null)
@@ -78,8 +87,7 @@ public class TestHandlersDriverActivity extends Activity
 		th.doDeferredWork();
     }
 
-    Handler statusBackHandler = null;
-    Thread workerThread = null;
+    //test work thread 
     private void testThread()
     {
     	if (statusBackHandler == null)
@@ -88,6 +96,7 @@ public class TestHandlersDriverActivity extends Activity
         	workerThread = 
         		new Thread(
         				new WorkerThreadRunnable(statusBackHandler));
+        	workerThread.start();
     	}
     	if (workerThread.getState() != Thread.State.TERMINATED)
     	{
